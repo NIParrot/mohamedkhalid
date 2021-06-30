@@ -53,9 +53,9 @@
 							class="dropdown-menu text-right"
 							aria-labelledby="dropdownMenuLink"
 						>
-							<nuxt-link to="" class="dropdown-item text-right" href="#">دكتور</nuxt-link>
-							<nuxt-link to="" class="dropdown-item text-right" href="#">مريض</nuxt-link>
-							<nuxt-link to="" class="dropdown-item text-right" href="#"
+							<nuxt-link class="dropdown-item text-right" to="/doctor/login" >دكتور</nuxt-link>
+							<nuxt-link class="dropdown-item text-right" to="/patient/login">مريض</nuxt-link>
+							<nuxt-link class="dropdown-item text-right"  to="/dashboard/login"
 								>مدير</nuxt-link
 							>
 						</div>
@@ -90,7 +90,7 @@
 								<br />
 								او تساعدك في وقايه عائلتك
 							</p>
-							<nuxt-link class="start btn_scale_hover" to="">
+							<nuxt-link class="start btn_scale_hover" to="/patient/login">
 								ابدا الان
 							</nuxt-link>
 						</div>
@@ -432,7 +432,7 @@
 					</div>
 					<div class="col-md-3"></div>
 					<div class="col-md-2 m-auto">
-						<nuxt-link to="/login" class="btn btn_scale_hover"
+						<nuxt-link to="/artical" class="btn btn_scale_hover"
 							>اذهب للمدونة</nuxt-link
 						>
 					</div>
