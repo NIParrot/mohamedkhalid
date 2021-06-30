@@ -5,7 +5,7 @@
 			<h1>تسجيل الدخول</h1>
 
 			<div class="txtb">
-				<input type="text" placeholder="رقم التيليفون" />
+				<input type="text" placeholder="اسم المستخدم" />
 			</div>
 
 			<div class="txtb">
@@ -16,7 +16,7 @@
 
 			<div class="bottom-text">
 				هل لا تمتلك حساب؟
-				<nuxt-link to="/signup" class="create">انشاء حساب</nuxt-link>
+				<nuxt-link to="/patient/signup" class="create">انشاء حساب</nuxt-link>
 			</div>
 		</form>
 	</div>
