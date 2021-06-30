@@ -191,7 +191,7 @@ export default {
 							return `
               <div
               data-link="/Dashboard/governoment/${row.id}"
-              style="cursor: pointer; color:#0d6efd;"
+              style="cursor: pointer; color:#0d6efd; width:100%"
               class="btn btn-primary"
               onclick="
               $nuxt.$store.commit('gov/updateSelectedgov', this.row);

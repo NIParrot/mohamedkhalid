@@ -96,20 +96,20 @@ export default {
         '@nuxtjs/pwa',
         'nuxt-i18n'
     ],
-    i18n: {
-        locales: [{
-                code: 'en',
-                file: 'en.json'
-            },
-            {
-                code: 'ar',
-                file: 'ar.json'
-            }
-        ],
-        lazy: true,
-        langDir: 'lang/',
-        defaultLocale: 'en',
-    },
+    // i18n: {
+    //     locales: [{
+    //             code: 'en',
+    //             file: 'en.json'
+    //         },
+    //         {
+    //             code: 'ar',
+    //             file: 'ar.json'
+    //         }
+    //     ],
+    //     lazy: true,
+    //     langDir: 'lang/',
+    //     defaultLocale: 'en',
+    // },
     axios: {
         baseURL: "https://coronavirous.ninameserver.xyz/api"
     },

@@ -11,7 +11,7 @@
 <script>
 import addform from './form.vue'
 export default {
-      layout: 'doctor',
+        layout: 'doctor',
 
   components: {
     addform,

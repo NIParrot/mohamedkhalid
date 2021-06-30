@@ -3,7 +3,7 @@
 		<div class="row">
 			<div class="col-md-12">
 				<card>
-					<form @submit.prevent="add_edit_artical">
+					<form @submit.prevent="add_edit_food_activity">
 						<div class="row">
 							<div class="col-md-6">
 								<div class="col-md-12">
@@ -11,7 +11,7 @@
 										type="text"
 										label="الاسم"
 										placeholder="الاسم"
-										v-model="artical.name"
+										v-model="food_activity.name"
 									>
 									</base-input>
 								</div>
@@ -38,7 +38,7 @@
 										type="text"
 										label="الملاحظات"
 										placeholder="الملاحظات"
-										v-model="artical.notes"
+										v-model="food_activity.notes"
 									>
 									</base-input>
 								</div>
@@ -47,7 +47,7 @@
 										type="text"
 										label=""
 										placeholder=""
-										v-model="artical.type"
+										v-model="food_activity.type"
 										hidden
 									>
 									</base-input>
@@ -61,7 +61,7 @@
 							<div class="col-md-6">
 								<label for="">الوصف</label>
 								<ckeditor
-									v-model="artical.description"
+									v-model="food_activity.description"
 									:config="editorConfig"
 									class="ckeditor"
 								></ckeditor>
@@ -85,9 +85,9 @@ import Vue from 'vue';
 import CKEditor from 'ckeditor4-vue';
 Vue.use(CKEditor);
 export default {
-	    layout: 'doctor',
+	      layout: 'doctor',
 
-	name: 'artical',
+	name: 'food_activity',
 	mounted: () => {
 		$('.custom-file-input').on('change', function() {
 			var fileName = $(this)
@@ -104,7 +104,6 @@ export default {
 	data() {
 		return {
 			editorConfig: {
-				enterMode : CKEDITOR.ENTER_BR,
 				language: 'en',
 				uiColor: '#AADC6E',
 				autoGrow_minHeight: 60,
@@ -113,34 +112,25 @@ export default {
 				magicline_color: '#000'
 			},
 			sidebarBackground: 'vue', //vue|blue|orange|green|red|primary
-			artical: {
+			food_activity: {
 				name: '',
 				description: '',
 				img: '',
 				notes: '',
-				type: 'artical'
+				type: 'food_activity'
 			},
-			valid: false,
-			addarticalLoading: false,
 			url: null
 		};
 	},
 	  mounted() {
-CKEDITOR.editorConfig = function( config )
-{
-config.language = 'en';
-config.enterMode                = CKEDITOR.ENTER_DIV;
-config.shiftEnterMode            = CKEDITOR.ENTER_BR;
-enterMode : CKEDITOR.ENTER_BR;
-};
 
     if(!isNaN(this.$route.params.id)){
     $nuxt.$axios.$get('/artical/index?id='+this.$route.params.id).then( res => {
-        this.artical.name= res.data.name;
-        this.artical.description= res.data.description;
-        this.artical.img= res.data.img;
-        this.artical.notes= res.data.notes;
-        this.artical.type= res.data.type;
+        this.food_activity.name= res.data.name;
+        this.food_activity.description= res.data.description;
+        this.food_activity.img= res.data.img;
+        this.food_activity.notes= res.data.notes;
+        this.food_activity.type= res.data.type;
       });
 
     }
@@ -151,40 +141,40 @@ enterMode : CKEDITOR.ENTER_BR;
 		onFileChange(e) {
 			const file = e.target.files[0];
 			this.url = URL.createObjectURL(file);
-			this.artical.img = this.$refs.file.files[0];
-			console.log(this.artical.img);
+			this.food_activity.img = this.$refs.file.files[0];
+			console.log(this.food_activity.img);
 		},
-		add_edit_artical() {
-			const ArticalParams = new FormData();
-			ArticalParams.append('name', this.artical.name);
-			ArticalParams.append('description', this.artical.description);
-			ArticalParams.append('img', this.artical.img);
-			ArticalParams.append('notes', this.artical.notes);
-			ArticalParams.append('type', this.artical.type);
+		add_edit_food_activity() {
+			const food_activityParams = new FormData();
+			food_activityParams.append('name', this.food_activity.name);
+			food_activityParams.append('description', btoa(unescape(encodeURIComponent(this.food_activity.description))));
+			food_activityParams.append('img', this.food_activity.img);
+			food_activityParams.append('notes', this.food_activity.notes);
+			food_activityParams.append('type', this.food_activity.type);
 			if(this.articalId){
-							ArticalParams.append('id', this.articalId);
+							food_activityParams.append('id', this.articalId);
 
 			}
 			const action = this.articalId
 				? {
 						name: 'artical/editartical',
-						payload: ArticalParams
+						payload: food_activityParams
 				  }
-				: { name: 'artical/addartical', payload: ArticalParams };
+				: { name: 'artical/addartical', payload: food_activityParams };
 
 			
 			
 
 			this.$store.dispatch(action.name, action.payload).then(() => {
-				this.$router.push('/doctor/artical');
+				this.$router.push('/doctor/food_activity');
 			});
 		},
 		getartical() {
 			this.$store.dispatch('getartical', this.articalId).then(artical => {
-				this.artical.name = data.name;
-				this.artical.description = data.description;
-				this.artical.img = data.img;
-				this.artical.notes = data.notes;
+				this.food_activity.name = data.name;
+				this.food_activity.description = data.description;
+				this.food_activity.img = data.img;
+				this.food_activity.notes = data.notes;
 			});
 		}
 	},

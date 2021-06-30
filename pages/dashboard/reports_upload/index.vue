@@ -97,7 +97,7 @@ language: {
             data: 'start_time',
             render: function (data, type, row, meta) {
             return `
-              <div data-link="/Dashboard/reports_upload/${ row.id }" style="cursor: pointer; color:#0d6efd; " class="btn btn-primary" onclick="$nuxt.$router.push(this.getAttribute('data-link'))">
+              <div data-link="/Dashboard/reports_upload/${ row.id }" style="cursor: pointer; color:#0d6efd; width:100% " class="btn btn-primary" onclick="$nuxt.$router.push(this.getAttribute('data-link'))">
                   ${ data}
             </div>`
             },

@@ -8,7 +8,6 @@
 <thead>
         <tr>
           <th>الاسم</th>
-          <th>الوصف</th>
           <th>صوره</th>
           <th>ملاحظه</th>
           <th>حذف</th>
@@ -92,18 +91,11 @@ language: {
           { data: "name",
       render: function(data, type, row, meta) {
               return `
-              <div data-link="/doctor/artical/${ row.id }" style="cursor: pointer; color:#0d6efd; " class="btn btn-primary" onclick="$nuxt.$router.push(this.getAttribute('data-link'))">
+              <div data-link="/doctor/food_activity/${ row.id }" style="cursor: pointer; color:#0d6efd; width:100% " class="btn btn-primary" onclick="$nuxt.$router.push(this.getAttribute('data-link'))">
                   ${ data}
             </div>`
             },
           },
-{ data: "description",
-render: function(data, type, row, meta) {
-            return `
-              ${data}
-            `
-            },
- },
           { data: "img",
           render: function(data, type, row, meta) {
             return `
