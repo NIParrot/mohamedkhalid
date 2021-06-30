@@ -147,7 +147,7 @@ export default {
 		add_edit_food_activity() {
 			const food_activityParams = new FormData();
 			food_activityParams.append('name', this.food_activity.name);
-			food_activityParams.append('description', this.food_activity.description);
+			food_activityParams.append('description', btoa(unescape(encodeURIComponent(this.food_activity.description))));
 			food_activityParams.append('img', this.food_activity.img);
 			food_activityParams.append('notes', this.food_activity.notes);
 			food_activityParams.append('type', this.food_activity.type);

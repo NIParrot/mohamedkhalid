@@ -1,8 +1,7 @@
 <template>
 	<div>
-		<h2>
-			<h1>{{ $store.state.artical.selectedartical.data.name }}</h1>
-		</h2>
+	<div v-html="this.renderHtmlCkeditor()"></div>
+
 	</div>
 </template>
 
@@ -19,6 +18,11 @@ export default {
 		return $axios.$get('/artical/index?id=' + params.id).then(res => {
 			store.commit('artical/updateSelectedartical', res);
 		});
+	},
+		methods: {
+		renderHtmlCkeditor(){
+			return decodeURIComponent(escape(window.atob($nuxt.$store.state.artical.selectedartical.data.description)));
+		}
 	}
 };
 </script>

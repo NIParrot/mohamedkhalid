@@ -1,14 +1,13 @@
 <template>
   <div class="row">
                 <div data-link="/doctor/artical/add" class="btn text-right ml-auto" onclick="$nuxt.$router.push(this.getAttribute('data-link'))">
-                 اضافه مقال
+اضافة مقال
             </div>
 
-  <table id="artical_table" class="display mt-5 pa" style="width: 100%">
+  <table id="food_table" class="display mt-5 pa" style="width: 100%">
 <thead>
         <tr>
           <th>الاسم</th>
-          <th>الوصف</th>
           <th>صوره</th>
           <th>ملاحظه</th>
           <th>حذف</th>
@@ -55,8 +54,8 @@ export default {
       
       this.externalLoaded = true;
       console.log("script loaded");
-      this.dataTable = $("#artical_table").DataTable({
-      language: {
+      this.dataTable = $("#food_table").DataTable({
+language: {
         lengthMenu:     "عرض _MENU_ المدخلات",
           search: '<strong style="padding:5px">البحث</strong>',
           searchPlaceholder: "بحث",
@@ -92,18 +91,11 @@ export default {
           { data: "name",
       render: function(data, type, row, meta) {
               return `
-              <div data-link="/doctor/artical/${ row.id }" style="cursor: pointer; color:#0d6efd; " class="btn btn-primary" onclick="$nuxt.$router.push(this.getAttribute('data-link'))">
+              <div data-link="/doctor/artical/${ row.id }" style="cursor: pointer; color:#0d6efd; width:100% " class="btn btn-primary" onclick="$nuxt.$router.push(this.getAttribute('data-link'))">
                   ${ data}
             </div>`
             },
           },
-{ data: "description",
-render: function(data, type, row, meta) {
-            return `
-              ${data}
-            `
-            },
- },
           { data: "img",
           render: function(data, type, row, meta) {
             return `
@@ -162,8 +154,6 @@ render: function(data, type, row, meta) {
             },
           },
         ],
-        //"scrollX": true,
-
       });
     },
   },
