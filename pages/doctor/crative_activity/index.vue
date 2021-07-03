@@ -25,6 +25,7 @@ import { Table, TableColumn } from 'element-ui';
 import Delete from "@/components/DeleteModal";
 
 export default {
+    	middleware: 'doctor_authenticated',
     layout: 'doctor',
   name: 'regular',
   components: {
@@ -46,12 +47,44 @@ export default {
     if (this.dataTable === null) {
       this.onScriptLoaded();
     }
+    this.onDelete();
   },
   methods: {
+        		onDelete() {
+			let select;
+			$('body').on(
+				'click',
+				'#crative_table tbody tr .delete_button',
+				function () {
+					select = {
+						row: $('#crative_table').DataTable().row(this.parentNode),
+						id: $('#crative_table')
+							.DataTable()
+							.row(this.parentNode)
+							.data().id,
+					};
+					$('body').on('click', '.refuse-button', function () {
+						select = null;
+					});
+					$('#deleteElement').on('hidden.bs.modal', function () {
+						select = null;
+					});
+					$('.confirm-delete').click(function () {
+						$nuxt.$store
+							.dispatch('artical/deleteArtical', { id: select.id })
+							.then((artical) => {
+								select.row.remove().draw();
+								$('#deleteElement').modal('hide');
+								select = null;
+							});
+            console.log(123);
+					});
+				}
+			);
+		},
+
+
     onScriptLoaded() {
-
-
-      
       this.externalLoaded = true;
       console.log("script loaded");
       this.dataTable = $("#crative_table").DataTable({

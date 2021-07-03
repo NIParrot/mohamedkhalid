@@ -25,6 +25,7 @@ import { Table, TableColumn } from 'element-ui';
 import Delete from "@/components/DeleteModal";
 
 export default {
+  	  middleware: "admin_authenticated",
   name: 'regular',
   components: {
     [Table.name]: Table,

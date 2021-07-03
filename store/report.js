@@ -14,7 +14,7 @@ export default {
     actions: {
         addreport({ state, commit }, payload) {
             return this.$axios.$post('/reports/add', payload).then((report) => {
-                commit('updatereports', state.reports.map(report => report));
+               console.log(report);
             })
         },
         editreport({ state, commit }, payload) {

@@ -88,6 +88,8 @@ export default {
 	      layout: 'doctor',
 
 	name: 'food_activity',
+	  	middleware: 'doctor_authenticated',
+
 	mounted: () => {
 		$('.custom-file-input').on('change', function() {
 			var fileName = $(this)

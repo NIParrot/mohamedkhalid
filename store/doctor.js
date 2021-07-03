@@ -23,6 +23,11 @@ export default {
         console.log("Success Edit")
       })
     },
+    deleteDoctor({ state, commit }, payload) {
+      return this.$axios.$post('/doctor/delete', payload).then((doctor) => {
+          commit('updatedoctors', state.doctors.map(doctor => doctor));
+      })
+  },
 
     getdoctor({state}, doctorId){
       const doctor = state.doctors.find( item => item.id == doctorId);

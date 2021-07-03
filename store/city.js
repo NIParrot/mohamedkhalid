@@ -24,6 +24,12 @@ export default {
       })
     },
 
+    deleteCity({ state, commit }, payload) {
+      return this.$axios.$post('/city/delete', payload).then((city) => {
+          commit('updatecitys', state.citys.map(city => city));
+      })
+  },
+
     getcity({state}, cityId){
       const city = state.citys.find( item => item.id == cityId);
       return city ? Promise.resolve(city) : this.$axios.$get(`city/index?id=${cityId}`)

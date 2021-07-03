@@ -45,7 +45,7 @@
           :link="{
             name: 'المستخدمين',
             icon: 'tim-icons icon-single-02',
-            path: '/dashboard/user'
+            path: '/dashboard/patient'
           }"
         >
         </sidebar-item>

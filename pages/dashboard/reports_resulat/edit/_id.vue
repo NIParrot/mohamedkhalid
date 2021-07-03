@@ -9,6 +9,8 @@
 <script>
 import editform from '../form.vue'
 export default {
+      middleware: "admin_authenticated",
+
     components:{
         editform
     }

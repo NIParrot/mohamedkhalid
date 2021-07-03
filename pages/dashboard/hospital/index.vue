@@ -20,38 +20,8 @@
 <script>
 import { Table, TableColumn } from 'element-ui'
 import Delete from '@/components/DeleteModal'
-    $("body").on("click", ".delete_buttonaaa", function () {
-  var select = {
-    row: $(this).closest("tr"),
-    id: $(this).closest("tr").find(".d-none span").text(),
-  };
-
-    $("body").on("click", ".refuse-button", function () {
-    delete select.id;
-    delete select.row;
-
-  });
-
-  $('#deleteElement').on('hidden.bs.modal', function () {
-    delete select.id;
-    delete select.row;
-
-})
-     $(".confirm-delete").click(function () {
-      $nuxt.$axios
-      .$post(
-        "/hospital/delete",
-        {id:select.id},
-            ).then((res) => {
-        select.row.remove();
-        delete select.id;
-        delete select.row;
-        $("#deleteElement").modal('hide');
-      });
-});
-});
-
 export default {
+  	  middleware: "admin_authenticated",
   name: 'regular',
   components: {
     [Table.name]: Table,
@@ -71,8 +41,42 @@ export default {
     if (this.dataTable === null) {
       this.onScriptLoaded()
     }
+        		this.onDelete();
+
   },
   methods: {
+    		onDelete() {
+			let select;
+			$('body').on(
+				'click',
+				'#hospital_table tbody tr .delete_button',
+				function () {
+					select = {
+						row: $('#hospital_table').DataTable().row(this.parentNode),
+						id: $('#hospital_table')
+							.DataTable()
+							.row(this.parentNode)
+							.data().id,
+					};
+					$('body').on('click', '.refuse-button', function () {
+						select = null;
+					});
+					$('#deleteElement').on('hidden.bs.modal', function () {
+						select = null;
+					});
+					$('.confirm-delete').click(function () {
+						$nuxt.$store
+							.dispatch('hospital/deleteHospital', { id: select.id })
+							.then((hospital) => {
+								select.row.remove().draw();
+								$('#deleteElement').modal('hide');
+								select = null;
+							});
+					});
+				}
+			);
+		},
+
           fetch({ $axios, store }) {
     return $axios.$get("/hospital/add").then(res => {
       store.commit("hospital/updatehospitals", res);

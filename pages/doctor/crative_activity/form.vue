@@ -86,6 +86,7 @@ import CKEditor from 'ckeditor4-vue';
 Vue.use(CKEditor);
 export default {
 	    layout: 'doctor',
+  	middleware: 'doctor_authenticated',
 
 	name: 'crative_activity',
 	mounted: () => {
@@ -147,7 +148,7 @@ export default {
 		add_edit_crative_activity() {
 			const crative_activityParams = new FormData();
 			crative_activityParams.append('name', this.crative_activity.name);
-			food_activityParams.append('description', btoa(unescape(encodeURIComponent(this.food_activity.description))));
+			crative_activityParams.append('description', btoa(unescape(encodeURIComponent(this.crative_activity.description))));
 			crative_activityParams.append('img', this.crative_activity.img);
 			crative_activityParams.append('notes', this.crative_activity.notes);
 			crative_activityParams.append('type', this.crative_activity.type);

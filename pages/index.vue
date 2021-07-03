@@ -53,9 +53,9 @@
 							class="dropdown-menu text-right"
 							aria-labelledby="dropdownMenuLink"
 						>
-							<nuxt-link class="dropdown-item text-right" to="/doctor/login" >دكتور</nuxt-link>
-							<nuxt-link class="dropdown-item text-right" to="/patient/login">مريض</nuxt-link>
-							<nuxt-link class="dropdown-item text-right"  to="/dashboard/login"
+							<nuxt-link class="dropdown-item text-right" to="/doctor/" >دكتور</nuxt-link>
+							<nuxt-link class="dropdown-item text-right" to="/patient/">مريض</nuxt-link>
+							<nuxt-link class="dropdown-item text-right"  to="/dashboard/"
 								>مدير</nuxt-link
 							>
 						</div>

@@ -86,6 +86,8 @@ import Vue from 'vue'
 import CKEditor from 'ckeditor4-vue'
 Vue.use(CKEditor)
 export default {
+    middleware: "admin_authenticated",
+
   name: 'user',
   data() {
     return {

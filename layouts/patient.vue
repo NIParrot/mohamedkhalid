@@ -11,7 +11,7 @@
 					:link="{
 						name: 'التقارير',
 						icon: 'tim-icons icon-single-02',
-						path: '/doctor/reports',
+						path: '/patient/reports',
 					}"
 				>
 				</sidebar-item>

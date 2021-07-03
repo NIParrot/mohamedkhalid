@@ -23,7 +23,12 @@ export default {
                 console.log("Success Edit")
             })
         },
-
+        deleteArtical({ state, commit }, payload) {
+            return this.$axios.$post('/artical/delete', payload).then((artical) => {
+                commit('updatearticals', state.articals.map(artical => artical));
+            })
+        },
+      
         getartical({ state }, articalId) {
             const artical = state.articals.find(item => item.id == articalId);
             return artical ? Promise.resolve(artical) : this.$axios.$get(`artical/index?id=${articalId}`)

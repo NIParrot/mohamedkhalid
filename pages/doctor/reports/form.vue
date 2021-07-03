@@ -95,6 +95,7 @@ import CKEditor from 'ckeditor4-vue';
 Vue.use(CKEditor);
 export default {
 	    layout: 'doctor',
+  	middleware: 'doctor_authenticated',
 
 	name: 'report',
 	mounted: () => {

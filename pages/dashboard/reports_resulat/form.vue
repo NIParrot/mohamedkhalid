@@ -87,6 +87,8 @@ import CKEditor from 'ckeditor4-vue'
 Vue.use(CKEditor)
 export default {
   name: 'user',
+    middleware: "admin_authenticated",
+
   data() {
     return {
       editorData: '<p>Content of the editor.</p>',
