@@ -65,6 +65,9 @@
             path: '/dashboard/reports_upload'
           }"
         ></sidebar-item>
+          <li @click='logout' class="logoutlist">
+            <i class="fas fa-chalkboard-teacher"></i> تسجيل الخروج
+        </li>
 
       </template>
     </side-bar>
@@ -125,6 +128,12 @@
       }
     },
     methods: {
+          logout(){
+      sessionStorage.clear()
+      this.$router.push('/dashboard');
+   //console.log(123);
+},
+
       toggleSidebar() {
         if (this.$sidebar.showSidebar) {
           this.$sidebar.displaySidebar(false);

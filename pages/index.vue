@@ -90,7 +90,7 @@
 								<br />
 								او تساعدك في وقايه عائلتك
 							</p>
-							<nuxt-link class="start btn_scale_hover" to="/patient/login">
+							<nuxt-link class="start btn_scale_hover" to="/patient/">
 								ابدا الان
 							</nuxt-link>
 						</div>

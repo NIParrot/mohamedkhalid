@@ -1309,3 +1309,16 @@ div.dt-button-collection .dt-button {
 .modal-backdrop.show{
     display: none !important;
 }
+.logoutlist{
+    font-size: 12px;
+    font-weight: 100;
+    padding: 11px 0;
+    cursor: pointer;
+    i{
+        font-size: inherit !important;
+        margin-left: 9%;
+    }
+}
+div.dataTables_scrollBody {
+    background: #27293d !important;
+}

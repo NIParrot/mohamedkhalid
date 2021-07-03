@@ -91,6 +91,7 @@ export default {
       this.externalLoaded = true
       console.log('script loaded')
       this.dataTable = $('#patient_table').DataTable({
+          "scrollX": true,
         language: {
           lengthMenu: 'عرض _MENU_ المدخلات',
           search: '<strong style="padding:5px">البحث</strong>',

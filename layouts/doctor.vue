@@ -39,6 +39,11 @@
 					}"
 				>
 				</sidebar-item>
+		<li @click='logout' class="logoutlist">
+            <i class="fas fa-chalkboard-teacher"></i> تسجيل الخروج
+        </li>
+
+
 			</template>
 		</side-bar>
 		<div class="main-panel" :data="sidebarBackground">
@@ -97,6 +102,12 @@ export default {
 		},
 	},
 	methods: {
+		          logout(){
+      sessionStorage.clear()
+      this.$router.push('/doctor');
+   //console.log(123);
+},
+
 		toggleSidebar() {
 			if (this.$sidebar.showSidebar) {
 				this.$sidebar.displaySidebar(false);
