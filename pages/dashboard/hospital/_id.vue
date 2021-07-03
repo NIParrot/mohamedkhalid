@@ -9,6 +9,8 @@
 <script>
 import axios from 'axios';
 export default {
+	  middleware: "admin_authenticated",
+
 	validate({ params }) {
 		return !isNaN(params.id);
 	},

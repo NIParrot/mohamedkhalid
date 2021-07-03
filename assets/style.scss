@@ -843,7 +843,7 @@ ul.menu {
     padding: 10px 50px;
     font-size: 20px;
     border-radius: 0;
-    background-color: $main_color;
+    background-color: $main_color !important;
     border: none;
     color: #fff;
     text-decoration: none;
@@ -851,8 +851,8 @@ ul.menu {
     display: block;
     &:hover {
         color: $main_color;
-        background-color: #fff;
-        outline: 2px auto $main_color;
+        background-color: #fff !important;
+        outline: 2px auto $main_color !important;
         transition: all 0.25s ease-in-out;
         -webkit-transition: all 0.25s ease-in-out;
         -moz-transition: all 0.25s ease-in-out;
@@ -1305,4 +1305,20 @@ div.dt-button-collection .dt-button {
 }
 .dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter, .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_processing, .dataTables_wrapper .dataTables_paginate, input[type="search"], .dataTables_length select, table.dataTable.row-border tbody th, table.dataTable.row-border tbody td, table.dataTable.display tbody th, table.dataTable.display tbody td, table.dataTable thead th, table.dataTable thead td, table.dataTable.no-footer{
     text-align: right;
+}
+.modal-backdrop.show{
+    display: none !important;
+}
+.logoutlist{
+    font-size: 12px;
+    font-weight: 100;
+    padding: 11px 0;
+    cursor: pointer;
+    i{
+        font-size: inherit !important;
+        margin-left: 9%;
+    }
+}
+div.dataTables_scrollBody {
+    background: #27293d !important;
 }

@@ -10,6 +10,8 @@
 <script>
 import editform from '../form.vue';
 export default {
+	  	middleware: 'doctor_authenticated',
+
 	components: {
 		editform
 	}

@@ -7,12 +7,10 @@
   <table id="report_table" class="display mt-5 pa" style="width: 100%">
 <thead>
         <tr>
-          <th>الاسم</th>
-          <th>الوصف</th>
-          <th>صوره</th>
-          <th>ملاحظه</th>
-          <th>حذف</th>
-          <th>تعديل</th>
+          <th>ملف الحالة</th>
+          <th>وصف الحالة</th>
+          <th>تم المراجعة</th>
+          <th>تقرير الطبيب</th>
           <th class="d-none">id</th>
         </tr>
       </thead>
@@ -26,6 +24,7 @@ import { Table, TableColumn } from 'element-ui';
 import Delete from "@/components/DeleteModal";
 
 export default {
+  	middleware: 'pa_authenticated',
     layout: 'patient',
   name: 'regular',
   components: {
@@ -87,76 +86,16 @@ export default {
             className: "d-none",
           },
         ],
-        				ajax: $nuxt.$axios.defaults.baseURL + '/reports/index',
+        				ajax: $nuxt.$axios.defaults.baseURL + '/reports/index?id='+sessionStorage.getItem('myid'),
         columns: [
-          { data: "patients_id",
-      render: function(data, type, row, meta) {
-              return `
-              <div data-link="/patient/reports/${ row.id }" style="cursor: pointer; color:#0d6efd; width:100% " class="btn btn-primary" onclick="$nuxt.$router.push(this.getAttribute('data-link'))">
-                  ${ data}
-            </div>`
-            },
-          },
-{ data: "description" },
-          { data: "img",
-          render: function(data, type, row, meta) {
-            return `
-              <img src="https://coronavirous.ninameserver.xyz/storage/${data}" style="width:100px">
-            `
-            },
-          },
-          { data: "resulat" },
-          {
-            data: null,
-            className: "center",
-            defaultContent: `<button style="
-             padding: 0.5rem 1rem;
-  border-radius: 5px;
-  left: 1rem;
-  top: 0rem;
-  background-color: #fd7b38;
-  color: #fff;
-  border: none;
-  font-size: 15px;
-  display: inline-block;
 
-  " class="delete_button" data-toggle="modal" data-target="#deleteElement">
-      حذف
-    </button>
-    `,
-          },
-          {
-            data: 'id',
-            render: function(data, type, row, meta) {
-                          return `
-              <div data-link="/patient/reports/edit/${data}/"
-              style="
-                  padding: 0.5rem 1rem;
-                  border-radius: 5px;
-                  left: 1rem;
-                  top: 0rem;
-                  cursor: pointer;
-                  background-color: #fd7b38;
-                  color: #fff;
-                  border: none;
-                  font-size: 15px;
-                  display: inline-block;
-                "class="edit_button"
-              onclick="$nuxt.$router.push(this.getAttribute('data-link'))">
-                  تعديل
-            </div>`
-            },
-          },
-          {
-            data: "id",
-            render: function(data, type, row, meta) {
-              return type === "display"
-                ? '<span style="display: none;">' + data + "</span>"
-                : data;
-            },
-          },
-        ],
-        //"scrollX": true,
+
+          { data: "img"},
+          { data: "description"},
+          { data: "status"},
+          { data: "result"},
+          { data: "id"}
+      ]
 
       });
     },

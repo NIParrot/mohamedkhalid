@@ -26,6 +26,8 @@ import { Table, TableColumn } from 'element-ui';
 import Delete from "@/components/DeleteModal";
 
 export default {
+    	middleware: 'doctor_authenticated',
+
     layout: 'doctor',
   name: 'regular',
   components: {

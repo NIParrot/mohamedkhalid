@@ -9,19 +9,7 @@
 <script>
 import addform from './form.vue'
 export default {
-    mounted(){
-        console.log(this.gov);
-    },
- 
-      
- 
-  methods: {
-    gov_form({ $axios }) {
-      this.$axios.$post('http://192.168.1.9:7979/api/states/add',this.gov).then(res => {
-          console.log(res);
-        })
-    },
-  },
+  middleware: "admin_authenticated",
   components: {
     addform,
   },

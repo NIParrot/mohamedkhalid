@@ -9,6 +9,7 @@
 <script>
 export default {
       layout: 'patient',
+  	middleware: 'pa_authenticated',
 
 	validate({ params }) {
 		return !isNaN(params.id);

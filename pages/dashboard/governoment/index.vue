@@ -25,18 +25,20 @@ import { Table, TableColumn } from 'element-ui';
 import Delete from '@/components/DeleteModal';
 
 export default {
+	  middleware: "admin_authenticated",
+
 	name: 'regular',
 	components: {
 		[Table.name]: Table,
-		[TableColumn.name]: TableColumn
+		[TableColumn.name]: TableColumn,
 	},
 	components: {
-		Delete
+		Delete,
 	},
 	data() {
 		return {
 			dataTable: null,
-			externalLoaded: false
+			externalLoaded: false,
 		};
 	},
 	mounted() {
@@ -47,30 +49,30 @@ export default {
 		this.onDelete();
 	},
 	methods: {
+		
 		onDelete() {
+			let select;
 			$('body').on(
 				'click',
 				'#gov_table tbody tr .delete_button',
-				function() {
+				function () {
 					select = {
-						row: $('#gov_table')
-							.DataTable()
-							.row(this.parentNode),
+						row: $('#gov_table').DataTable().row(this.parentNode),
 						id: $('#gov_table')
 							.DataTable()
 							.row(this.parentNode)
-							.data().id
+							.data().id,
 					};
-					$('body').on('click', '.refuse-button', function() {
+					$('body').on('click', '.refuse-button', function () {
 						select = null;
 					});
-					$('#deleteElement').on('hidden.bs.modal', function() {
+					$('#deleteElement').on('hidden.bs.modal', function () {
 						select = null;
 					});
-					$('.confirm-delete').click(function() {
+					$('.confirm-delete').click(function () {
 						$nuxt.$store
 							.dispatch('gov/deleteGov', { id: select.id })
-							.then(gov => {
+							.then((gov) => {
 								select.row.remove().draw();
 								$('#deleteElement').modal('hide');
 								select = null;
@@ -79,9 +81,8 @@ export default {
 				}
 			);
 		},
-
 		fetch({ $axios, store }) {
-			return $axios.$get('/states/add').then(res => {
+			return $axios.$get('/states/add').then((res) => {
 				store.commit('gov/updategovs', res);
 			});
 		},
@@ -100,7 +101,7 @@ export default {
         > rtip`,
 				lengthMenu: [
 					[5, 10, 15, -1],
-					[5, 10, 15, 'All']
+					[5, 10, 15, 'All'],
 				],
 				buttons: [
 					{
@@ -108,34 +109,34 @@ export default {
 						exportOptions: {
 							columns: ':visible',
 							autoPrint: true,
-							orientation: 'landscape'
-						}
+							orientation: 'landscape',
+						},
 					},
 					{
 						extend: 'csv',
 						exportOptions: {
 							columns: ':visible',
 							autoPrint: true,
-							orientation: 'landscape'
-						}
+							orientation: 'landscape',
+						},
 					},
 					{
 						extend: 'excel',
 						exportOptions: {
 							columns: ':visible',
 							autoPrint: true,
-							orientation: 'landscape'
-						}
+							orientation: 'landscape',
+						},
 					},
 					{
 						extend: 'copy',
 						exportOptions: {
 							columns: ':visible',
 							autoPrint: true,
-							orientation: 'landscape'
-						}
+							orientation: 'landscape',
+						},
 					},
-					'colvis'
+					'colvis',
 				],
 				language: {
 					buttons: {
@@ -150,8 +151,8 @@ export default {
 							'Appuyez sur <i>ctrl</i> ou <i>\u2318</i> + <i>C</i> pour copier les données du tableau à votre presse-papiers. <br><br>Pour annuler, cliquez sur ce message ou appuyez sur Echap.',
 						copySuccess: {
 							_: '%d سطر تم نسخه',
-							1: '1 سطر تم نسخه'
-						}
+							1: '1 سطر تم نسخه',
+						},
 					},
 					lengthMenu: 'عرض _MENU_ المدخلات',
 					search: '<strong style="padding:5px">البحث</strong>',
@@ -160,7 +161,7 @@ export default {
 						next: 'التالي',
 						previous: 'السابق',
 						first: 'الاول',
-						last: 'الاخير'
+						last: 'الاخير',
 					},
 					decimal: '',
 					emptyTable: 'لا يوجد بيانات في الجدول',
@@ -174,20 +175,20 @@ export default {
 					zeroRecords: 'لا يوجد بيانات مماثله',
 					aria: {
 						sortAscending: ': activate to sort column ascending',
-						sortDescending: ': activate to sort column descending'
-					}
+						sortDescending: ': activate to sort column descending',
+					},
 				},
 				columnDefs: [
 					{
 						targets: [-1],
-						className: 'd-none'
-					}
+						className: 'd-none',
+					},
 				],
 				ajax: $nuxt.$axios.defaults.baseURL + '/states/index',
 				columns: [
 					{
 						data: 'name',
-						render: function(data, type, row, meta) {
+						render: function (data, type, row, meta) {
 							return `
               <div
               data-link="/Dashboard/governoment/${row.id}"
@@ -199,7 +200,7 @@ export default {
               ">
                   ${data}
             </div>`;
-						}
+						},
 					},
 					{
 						data: null,
@@ -218,13 +219,13 @@ export default {
   " class="delete_button" data-toggle="modal" data-target="#deleteElement">
       حذف
     </button>
-    `
+    `,
 					},
 
 					{
 						data: 'id',
 						className: 'gov_name',
-						render: function(data, type, row, meta) {
+						render: function (data, type, row, meta) {
 							return `
                           
               <div data-link="/Dashboard/governoment/edit/${data}/"
@@ -246,23 +247,23 @@ export default {
               ">
                   تعديل
             </div>`;
-						}
+						},
 					},
 
 					{
 						data: 'id',
-						render: function(data, type, row, meta) {
+						render: function (data, type, row, meta) {
 							return type === 'display'
 								? '<span style="display: none;">' +
 										data +
 										'</span>'
 								: data;
-						}
-					}
-				]
+						},
+					},
+				],
 			});
-		}
-	}
+		},
+	},
 };
 </script>
 

@@ -6,24 +6,6 @@
 					<form @submit.prevent="add_edit_report">
 						<div class="row">
 							<div class="col-md-6">
-								<div class="col-md-12">
-								<label for="govrnoment" class="label"
-									>المحافظه</label
-								>
-								<select
-									class="form-control"
-									v-model="report.states_id"
-								>
-									<option
-										class="user_option"
-										v-for="user in users"
-										:key="user.id"
-										:value="user.id"
-									>
-										{{ user.fullname }}
-									</option>
-								</select>
-								</div>
 								<div class="col-md-12 mt-3 mb-3">
 									<div class="custom-file mb-3 mt-4">
 										<input
@@ -42,25 +24,6 @@
 									</div>
 								</div>
 
-								<div class="col-md-12">
-									<base-input
-										type="text"
-										label="النتيجه"
-										placeholder="النتيجه"
-										v-model="report.result"
-									>
-									</base-input>
-								</div>
-								<div class="col-md-12">
-									<base-input
-										type="text"
-										label=""
-										placeholder=""
-										v-model="report.type"
-										hidden
-									>
-									</base-input>
-								</div>
 								<div class="col-md-12">
 									<div id="preview">
 										<img v-if="url" :src="url" />
@@ -95,6 +58,7 @@ import CKEditor from 'ckeditor4-vue';
 Vue.use(CKEditor);
 export default {
 	    layout: 'patient',
+  	middleware: 'pa_authenticated',
 
 	name: 'report',
 	mounted: () => {
@@ -124,8 +88,6 @@ export default {
 			report: {
 				description: '',
 				img: '',
-				result: '',
-				patients_id: '',
 			},
 			users: '',
 			valid: false,
@@ -133,23 +95,6 @@ export default {
 			url: null
 		};
 	},
-	  mounted() {
-		$nuxt.$axios.$get('/patient/index').then(res => {
-			this.users = res.data;
-		});
-
-    if(!isNaN(this.$route.params.id)){
-    $nuxt.$axios.$get('/reports/index?id='+this.$route.params.id).then( res => {
-        this.report.description= res.data.description;
-        this.report.img= res.data.img;
-        this.report.result= res.data.result;
-        this.report.patients_id= res.data.patients_id;
-      });
-
-    }
-
-  },
-
 	methods: {
 		onFileChange(e) {
 			const file = e.target.files[0];
@@ -159,36 +104,19 @@ export default {
 		},
 		add_edit_report() {
 			const reportParams = new FormData();
-			reportParams.append('description', this.report.description);
+			reportParams.append('description', btoa(unescape(encodeURIComponent(this.report.description))));
 			reportParams.append('img', this.report.img);
-			reportParams.append('resulat', this.report.resulat);
-			reportParams.append('patients_id', this.report.patients_id);
-			if(this.reportId){
-							reportParams.append('id', this.reportId);
+			reportParams.append('patients_id', sessionStorage.getItem('myid'));
 
-			}
-			const action = this.reportId
-				? {
-						name: 'report/editreport',
-						payload: reportParams
-				  }
-				: { name: 'report/addreport', payload: reportParams };
+			console.log( btoa(unescape(encodeURIComponent(this.report.description))));
+			console.log( this.report.img);
+			console.log( sessionStorage.getItem('myid'));
 
-			
-			
-
-			this.$store.dispatch(action.name, action.payload).then(() => {
-				this.$router.push('/patient/report');
+			this.$store.dispatch('report/addreport', reportParams).then(() => {
+				this.$router.push('/patient/reports');
 			});
 		},
-		getreport() {
-			this.$store.dispatch('getreport', this.reportId).then(report => {
-				this.report.name = data.name;
-				this.report.description = data.description;
-				this.report.img = data.img;
-				this.report.notes = data.notes;
-			});
-		}
+
 	},
 	computed: {
 		reportId() {

@@ -1,9 +1,9 @@
 <template>
   <div class="row">
-                <nuxt-link class="btn text-right ml-auto" to="/dashboard/user/add">
+                <nuxt-link class="btn text-right ml-auto" to="/dashboard/patient/add">
                  اضافه مريض
                 </nuxt-link>
-    <table id="user_table" class="display mt-5 pa" style="width: 100%">
+    <table id="patient_table" class="display mt-5 pa" style="width: 100%">
       <thead>
         <tr>
           <th>الاسم</th>
@@ -23,38 +23,8 @@
 <script>
 import { Table, TableColumn } from 'element-ui'
 import Delete from '@/components/DeleteModal'
-    $("body").on("click", ".delete_buttonaaa", function () {
-  var select = {
-    row: $(this).closest("tr"),
-    id: $(this).closest("tr").find(".d-none span").text(),
-  };
-
-    $("body").on("click", ".refuse-button", function () {
-    delete select.id;
-    delete select.row;
-
-  });
-
-  $('#deleteElement').on('hidden.bs.modal', function () {
-    delete select.id;
-    delete select.row;
-
-})
-     $(".confirm-delete").click(function () {
-      $nuxt.$axios
-      .$post(
-        "/patient/delete",
-        {id:select.id},
-            ).then((res) => {
-        select.row.remove();
-        delete select.id;
-        delete select.row;
-        $("#deleteElement").modal('hide');
-      });
-});
-});
-
 export default {
+  middleware: "admin_authenticated",
   name: 'regular',
   components: {
     [Table.name]: Table,
@@ -74,20 +44,54 @@ export default {
     if (this.dataTable === null) {
       this.onScriptLoaded()
     }
+    		this.onDelete();
   },
   methods: {
+    		onDelete() {
+			let select;
+			$('body').on(
+				'click',
+				'#patient_table tbody tr .delete_button',
+				function () {
+					select = {
+						row: $('#patient_table').DataTable().row(this.parentNode),
+						id: $('#patient_table')
+							.DataTable()
+							.row(this.parentNode)
+							.data().id,
+					};
+					$('body').on('click', '.refuse-button', function () {
+						select = null;
+					});
+					$('#deleteElement').on('hidden.bs.modal', function () {
+						select = null;
+					});
+					$('.confirm-delete').click(function () {
+						$nuxt.$store
+							.dispatch('patient/deletePatient', { id: select.id })
+							.then((patient) => {
+								select.row.remove().draw();
+								$('#deleteElement').modal('hide');
+								select = null;
+							});
+					});
+				}
+			);
+		},
+
           fetch({ $axios, store }) {
     return $axios.$get("/patient/add").then(res => {
-      store.commit("user/updateusers", res);
+      store.commit("patient/updatepatients", res);
     });
   },
-        updateSelecteduser(user) {
-      this.$store.commit("updateSelecteduser", user);
+        updateSelectedpatient(patient) {
+      this.$store.commit("updateSelectedpatient", patient);
     },
     onScriptLoaded() {
       this.externalLoaded = true
       console.log('script loaded')
-      this.dataTable = $('#user_table').DataTable({
+      this.dataTable = $('#patient_table').DataTable({
+          "scrollX": true,
         language: {
           lengthMenu: 'عرض _MENU_ المدخلات',
           search: '<strong style="padding:5px">البحث</strong>',
@@ -119,7 +123,7 @@ export default {
             data: 'fullname',
             render: function (data, type, row, meta) {
             return `
-              <div data-link="/dashboard/user/${ row.id }" style="cursor: pointer; color:#0d6efd; width:100% " class="btn btn-primary" onclick="$nuxt.$router.push(this.getAttribute('data-link'))">
+              <div data-link="/dashboard/patient/${ row.id }" style="cursor: pointer; color:#0d6efd; width:100% " class="btn btn-primary" onclick="$nuxt.$router.push(this.getAttribute('data-link'))">
                   ${ data}
             </div>`
             },
@@ -151,7 +155,7 @@ export default {
             data: 'id',
             render: function (data, type, row, meta) {
               return `
-              <div data-link="/Dashboard/user/edit/${data}/"
+              <div data-link="/Dashboard/patient/edit/${data}/"
               style="
                   padding: 0.5rem 1rem;
                   border-radius: 5px;

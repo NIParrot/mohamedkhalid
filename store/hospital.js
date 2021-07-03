@@ -23,6 +23,11 @@ export default {
         console.log("Success Edit")
       })
     },
+    deleteHospital({ state, commit }, payload) {
+      return this.$axios.$post('/hospital/delete', payload).then((hospital) => {
+          commit('updatehospitals', state.hospitals.map(hospital => hospital));
+      })
+  },
 
     gethospital({state}, hospitalId){
       const hospital = state.hospitals.find( item => item.id == hospitalId);

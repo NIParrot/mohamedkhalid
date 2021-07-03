@@ -1,7 +1,11 @@
 <template>
 	<div class="signup text-right" dir="rtl">
 		<div class="container">
-			<form action="" class="signup-form text-right">
+			<form
+				action=""
+				class="signup-form text-right"
+				@submit.prevent="add_edit_patient"
+			>
 				<img
 					src="@/assets/img/use-img-1.png"
 					alt=""
@@ -12,17 +16,29 @@
 				<div class="row">
 					<div class="col-md-6">
 						<div class="txtb">
-							<input type="text" placeholder="الاسم الاول" />
+							<input
+								type="text"
+								placeholder="الاسم الاول"
+								v-model="patient.firstname"
+							/>
 						</div>
 					</div>
 					<div class="col-md-6">
 						<div class="txtb">
-							<input type="text" placeholder="الاسم الاخير" />
+							<input
+								type="text"
+								placeholder="الاسم الاخير"
+								v-model="patient.lastname"
+							/>
 						</div>
 					</div>
 					<div class="col-md-6">
 						<div class="txtb">
-							<input type="text" placeholder="رقم التيليفون" />
+							<input
+								type="text"
+								placeholder="رقم التيليفون"
+								v-model="patient.phone"
+							/>
 						</div>
 					</div>
 					<div class="col-md-6">
@@ -30,61 +46,47 @@
 							<input
 								type="email"
 								placeholder="البريد الالكتروني"
+								v-model="patient.email"
 							/>
 						</div>
 					</div>
 					<div class="col-md-6">
 						<div class="txtb">
 							<select
-								name=""
-								id="gov"
-								aria-label="Governorate"
-								aria-labelledby="Gov"
+								v-model="patient.towns_id"
+								style="color: #000"
 							>
 								<option
-									value=""
+									value="المدنه"
 									disabled
 									selected
-									class="d-none"
-									>المحافظه</option
+									hidden
+									style="color: #000 !important"
 								>
+									المدينه
+								</option>
+								<option
+									class=""
+									v-for="city in citys"
+									:key="city.id"
+									:value="city.id"
+								>
+									{{ city.name }}
+								</option>
 							</select>
 						</div>
 					</div>
 					<div class="col-md-6">
 						<div class="txtb">
-							<select
-								name=""
-								id="city"
-								aria-label="City"
-								aria-labelledby="city"
-							>
-								<option
-									value=""
-									disabled
-									selected
-									class="d-none"
-									>المدينه</option
-								>
-							</select>
+							<input type="password" placeholder="كلمه المرور" v-model="patient.password" />
 						</div>
 					</div>
-					<div class="col-md-6">
-						<div class="txtb">
-							<input type="password" placeholder="كلمه المرور" />
-						</div>
-					</div>
-					<div class="col-md-6">
-						<div class="txtb">
-							<input
-								type="password"
-								placeholder="اعاده كتابه كلمه المرور"
-							/>
-						</div>
-					</div>
+
 				</div>
 
-				<input type="submit" class="logbtn2" value="انشاء حساب" />
+				<base-button native-type="submit" type="primary" class="btn-fill but logbtn2">
+					{{ submitButtonText }}
+				</base-button>
 
 				<div class="bottom-text">
 					هل تمتلك حساب
@@ -95,38 +97,58 @@
 	</div>
 </template>
 <script>
-$('#gov').change(function() {
-	$('#city').empty();
-	var LeveLsSelectedId = $('#gov option:selected').val();
-	const xhr = new XMLHttpRequest();
-	xhr.open('GET', 'http://catalog.data.gov/api/3/' + LeveLsSelectedId);
-	xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-	xhr.send();
-	xhr.onreadystatechange = function() {
-		if (this.readyState === 4 && this.status === 200) {
-			RDS = JSON.parse(this.responseText);
-			AAA = Object.values(RDS);
-			for (let i = 0; i < AAA.length; i++) {
-				const element = AAA[i];
-				$('#city').append(
-					'<option value="' +
-						element.id +
-						'">' +
-						element.name +
-						'</option>'
-				);
-			}
-		}
-	};
-});
 export default {
 	layout(context) {
 		return 'main';
 	},
+	data() {
+		return {
+			patient: {
+				firstname: '',
+				lastname: '',
+				phone: '',
+				email: '',
+				password: '',
+				towns_id: '',
+				repassword: '',
+			},
+			citys: '',
+		};
+	},
+	computed: {
+		patientId() {
+			return +this.$route.params.id;
+		},
+		submitButtonText() {
+			return this.patientId ? 'Save' : 'Submit';
+		},
+	},
+	mounted() {
+		$nuxt.$axios.$get('/city/index').then((res) => {
+			this.citys = res.data;
+		});
+	},
+
+	methods: {
+		updateProfile() {
+			console.log(this.$route.params.id);
+		},
+
+		add_edit_patient() {
+			console.log(this.patient);
+			console.log(123);
+			const action =  { name: 'patient/addpatient', payload: { ...this.patient , fullname:(this.patient.firstname + this.patient.lastname)} };
+			$nuxt.$store.dispatch(action.name, action.payload).then(() => {
+				this.$router.push('/patient');
+			});
+		},
+		
+	},
+
 	head() {
 		return {
-			link: [{ rel: 'stylesheet', href: '~/assets/style.scss' }]
+			link: [{ rel: 'stylesheet', href: '~/assets/style.scss' }],
 		};
-	}
+	},
 };
 </script>

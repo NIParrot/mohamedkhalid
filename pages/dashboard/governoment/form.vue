@@ -36,6 +36,8 @@
 </style>
 <script>
 export default {
+	  middleware: "admin_authenticated",
+
 	data() {
 		return {
 			gov: {

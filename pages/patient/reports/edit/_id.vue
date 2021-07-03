@@ -10,6 +10,7 @@
 import editform from '../form.vue'
 export default {
         layout: 'patient',
+  	middleware: 'pa_authenticated',
 
     components:{
         editform

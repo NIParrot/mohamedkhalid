@@ -11,10 +11,14 @@
 					:link="{
 						name: 'التقارير',
 						icon: 'tim-icons icon-single-02',
-						path: '/doctor/reports',
+						path: '/patient/reports',
 					}"
 				>
 				</sidebar-item>
+		<li @click='logout' class="logoutlist">
+            <i class="fas fa-chalkboard-teacher"></i> تسجيل الخروج
+        </li>
+
 			</template>
 		</side-bar>
 		<div class="main-panel" :data="sidebarBackground">
@@ -73,6 +77,12 @@ export default {
 		},
 	},
 	methods: {
+		          logout(){
+      sessionStorage.clear()
+      this.$router.push('/patient');
+   //console.log(123);
+},
+
 		toggleSidebar() {
 			if (this.$sidebar.showSidebar) {
 				this.$sidebar.displaySidebar(false);

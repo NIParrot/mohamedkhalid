@@ -12,6 +12,7 @@
 import addform from './form.vue'
 export default {
       layout: 'doctor',
+  	middleware: 'pa_authenticated',
 
   components: {
     addform,

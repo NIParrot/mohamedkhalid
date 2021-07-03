@@ -8,6 +8,8 @@
 <script>
 import addform from './form.vue';
 export default {
+	  middleware: "admin_authenticated",
+
 	mounted() {
 		console.log(this.gov);
 	},

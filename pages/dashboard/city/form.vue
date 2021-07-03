@@ -50,6 +50,8 @@
 import Multiselect from 'vue-multiselect';
 
 export default {
+	  middleware: "admin_authenticated",
+
 	components: {
 		Multiselect
 	},
