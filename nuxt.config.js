@@ -15,6 +15,7 @@
  */
 const webpack = require("webpack");
 
+
 export default {
     mode: 'spa',
     /*
@@ -111,7 +112,12 @@ export default {
     //     defaultLocale: 'en',
     // },
     axios: {
-        baseURL: "https://coronavirous.ninameserver.xyz/api"
+        baseURL: "https://coronavirous.ninameserver.xyz/api",
+    },
+
+    api: {
+        storage: 'ss'
+
     },
 
     /*

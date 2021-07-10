@@ -3,6 +3,9 @@
 		<form action="" class="login-form">
 			<img src="@/assets/img/use-img-1.png" alt="" class="img-fluid" />
 			<h1>تسجيل الدخول</h1>
+			      <div v-if="msg !== ''" class="alert alert-danger" role="alert">
+        {{ msg }}
+      </div>
 
 			<div class="txtb">
 				<input
@@ -23,7 +26,7 @@
 			<input
 				type="submit"
 				class="logbtn"
-				value="Login"
+				value="تسجيل الدخول"
 				@click.prevent="adminLogin"
 			/>
 		</form>
@@ -64,9 +67,8 @@ export default {
 		},
 	},
 
-	layout(context) {
-		return 'main';
-	},
+	  layout: "empty"
+,
 	head() {
 		return {
 			link: [{ rel: 'stylesheet', href: '~/assets/style.scss' }],

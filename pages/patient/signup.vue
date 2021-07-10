@@ -98,9 +98,8 @@
 </template>
 <script>
 export default {
-	layout(context) {
-		return 'main';
-	},
+	  layout: "empty"
+,
 	data() {
 		return {
 			patient: {
