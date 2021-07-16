@@ -63,11 +63,9 @@
 								to="/doctor/"
 								>دكتور</nuxt-link
 							>
-							<nuxt-link
-								class="dropdown-item text-right"
-								to="/patient/"
-								>مريض</nuxt-link
-							>
+
+
+						
 							<nuxt-link
 								class="dropdown-item text-right"
 								to="/dashboard/"
@@ -101,9 +99,11 @@
 								>
 							</h1>
 							<p class="wow fadeInRight paragraph">
-								نوفرلك معرفه نتائج تحليل و توفير برنامج للتعافي
-								<br />
-								او تساعدك في وقايه عائلتك
+نوفر لك اماكن مستشفيات العزل
+ 								<br />
+نوفر لك المساعدة الطبية اللازمة
+
+ 								<br />
 							</p>
 							<nuxt-link
 								class="start btn_scale_hover"

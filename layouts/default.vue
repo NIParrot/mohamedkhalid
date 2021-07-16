@@ -41,6 +41,7 @@
         >
         </sidebar-item>
 
+<!--
         <sidebar-item
           :link="{
             name: 'المستخدمين',
@@ -50,6 +51,8 @@
         >
         </sidebar-item>
 
+
+
         <sidebar-item
           :link="{
             name: 'نتائج التقارير',
@@ -58,13 +61,25 @@
           }"
         ></sidebar-item>
 
-        <sidebar-item
-          :link="{
-            name: 'رفع التقارير',
-            icon: 'tim-icons icon-cloud-upload-94',
-            path: '/dashboard/reports_upload'
-          }"
-        ></sidebar-item>
+
+				<sidebar-item
+					:link="{
+						name: 'التقارير',
+						icon: 'tim-icons icon-single-02',
+						path: '/doctor/reports',
+					}"
+				>
+				</sidebar-item>
+
+-->
+
+				<li @click='alertdata' class="logoutlist">
+            <i class="fas fa-chalkboard-teacher"></i> نتائج التقارير
+        </li>
+
+				<li @click='alertdata' class="logoutlist">
+            <i class="fas fa-chalkboard-teacher"></i> التقارير
+        </li>
           <li @click='logout' class="logoutlist">
             <i class="fas fa-chalkboard-teacher"></i> تسجيل الخروج
         </li>
@@ -128,6 +143,9 @@
       }
     },
     methods: {
+      alertdata(){
+	alert('سيتم اضافة هذه الخاصية مستقبليا')
+},
           logout(){
       sessionStorage.clear()
       this.$router.push('/dashboard');

@@ -31,6 +31,7 @@
 						path: '/doctor/food_activity',
 					}"
 				></sidebar-item>
+<!--
 				<sidebar-item
 					:link="{
 						name: 'التقارير',
@@ -39,6 +40,13 @@
 					}"
 				>
 				</sidebar-item>
+
+-->
+
+				<li @click='alertdata' class="logoutlist">
+            <i class="fas fa-chalkboard-teacher"></i> التقارير
+        </li>
+
 		<li @click='logout' class="logoutlist">
             <i class="fas fa-chalkboard-teacher"></i> تسجيل الخروج
         </li>
@@ -106,6 +114,10 @@ export default {
       sessionStorage.clear()
       this.$router.push('/doctor');
    //console.log(123);
+},
+
+alertdata(){
+	alert('سيتم اضافة هذه الخاصية مستقبليا')
 },
 
 		toggleSidebar() {

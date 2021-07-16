@@ -7,14 +7,21 @@
 			:title="$t('sidebar.title')"
 		>
 			<template slot="links">
+<!--
 				<sidebar-item
 					:link="{
 						name: 'التقارير',
 						icon: 'tim-icons icon-single-02',
-						path: '/patient/reports',
+						path: '/doctor/reports',
 					}"
 				>
 				</sidebar-item>
+
+-->
+
+				<li @click='alertdata' class="logoutlist">
+            <i class="fas fa-chalkboard-teacher"></i> التقارير
+        </li>
 		<li @click='logout' class="logoutlist">
             <i class="fas fa-chalkboard-teacher"></i> تسجيل الخروج
         </li>
@@ -77,6 +84,9 @@ export default {
 		},
 	},
 	methods: {
+		alertdata(){
+	alert('سيتم اضافة هذه الخاصية مستقبليا')
+},
 		          logout(){
       sessionStorage.clear()
       this.$router.push('/patient');
